@@ -14,7 +14,7 @@ function initialize() {
     cartodb_leaflet1 = new L.CartoDBLayer({
         map_canvas: 'map_canvas',
                      map: map,
-                     user_name:'arce',
+                     user_name:'viz2',
                      table_name: 'github_ruby_users',
                      query: "SELECT cartodb_id,the_geom_webmercator FROM github_ruby_users",
                      tile_style: "#test2{line-color:#719700;line-width:1;line-opacity:0.6;polygon-opacity:0.6;}",
@@ -27,9 +27,9 @@ function initialize() {
     cartodb_leaflet2 = new L.CartoDBLayer({
         map_canvas: 'map_canvas',
                      map: map,
-                     user_name:'arce',
-                     table_name: 'points',
-                     query: "SELECT cartodb_id,the_geom_webmercator FROM github_ruby_users",
+                     user_name:'viz2',
+                     table_name: 'github_ruby_users',
+                     query: "SELECT cartodb_id, the_geom_webmercator FROM github_ruby_users",
                      map_key: "6087bc5111352713a81a48491078f182a0541f6c",
                      infowindow: true,
                      auto_bound: false,
