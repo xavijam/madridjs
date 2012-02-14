@@ -4,13 +4,14 @@
   <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
   <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
   <title>MadridJS | CartoDB</title>
-  <link rel="shortcut icon" href="/img/favicon_32x32.ico" />
+  <link rel="shortcut icon" href="http://cartodb.com/favicon/favicon_32x32.ico" />
   <link href="css/map/leaflet.css" rel="stylesheet" type="text/css" />
   <link href="css/map/leaflet.ie.css" rel="stylesheet" type="text/css" />
   <link  href="css/map/cartodb.css" rel="stylesheet" type="text/css">
 	<link  href="css/app.css" rel="stylesheet" type="text/css">
 
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <script type="text/javascript" src="js/libs/jquery.ui.js"></script>
   <script type="text/javascript" src="js/map/leaflet.js"></script>
   <script type="text/javascript" src="js/map/wax.leaflet.min.js"></script>
   <script type="text/javascript" src="js/map/cartodb-leaflet.js"></script>
@@ -19,7 +20,21 @@
 <body>
 	<div id="map"></div>
 	<aside>
-		
+		<div class="two">
+      <h4>EMPLOYABLE / OCCUPIED</h4>
+      <form>
+        <input type="radio" name="employable" value="employable"/>employable
+        <input type="radio" name="occupied" value="occupied"/>occupied
+        <input type="radio" name="All" value="normal"/>normal
+      </form>
+    </div>
+    <div class="three">
+      <h4>-</h4>
+    </div>
+    <div class="four">
+      <h4>SEARCH ANY JAVASCRIPTERS</h4>
+      <input type="text" placeholder="Some nice guy?"/>
+    </div>
 	</aside>
 	<a class="github_logo" href="https://github.com/xavijam/madridjs" target="_blank">GitHUB</a>
 	<a class="cartodb_logo" href="http://cartodb.com" target="_blank">CartoDB</a>
