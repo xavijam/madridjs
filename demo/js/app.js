@@ -12,16 +12,6 @@
 	    cloudmade = new L.TileLayer(cloudmadeUrl, {maxZoom: 18, attribution: cloudmadeAttrib});
 			map.addLayer(cloudmade);
 
-	    ruby = new L.CartoDBLayer({
-	      map_canvas: 'map',
-	      map: map,
-	      user_name:'viz2',
-	      table_name: 'github_ruby_users_export_8',
-	      query: "SELECT * FROM github_ruby_users_export_8",
-	      infowindow: true,
-	      auto_bound: false,
-	      debug: true
-	    });
 
 	    javascript = new L.CartoDBLayer({
 	      map_canvas: 'map',
@@ -42,27 +32,44 @@
 	    	// WITH OPTIONS
 	    	$('body').addClass('options');
 
-	    	// AUTOCOMPLETE
-	    	$('input').autocomplete({
-	    		source: function(request,response) {
-						$.ajax({
-					    url:"http://viz2.cartodb.com/api/v1/sql/?q=" + encodeURIComponent("SELECT cartodb_id,username,latitude,longitude FROM github_javascript_users WHERE username ilike '%" + request.term + "%' AND the_geom IS NOT NULL LIMIT 3"),
-				    	dataType: 'jsonp',
-					    timeout: 2000,
-					    callbackParameter: 'callback',
-					    success: function(result) {
-				    		response( $.map( result.rows, function( item ) {
-									return {
-										label: item.username,
-										id: item.cartodb_id,
-										center: new L.LatLng(item.latitude,item.longitude) 
-									}
-								}));
-							},
-				    	error: function(e, msg) {}
-				    });
-	    		}
-	    	});
+	    	if (example>2) {
+	    		// AUTOCOMPLETE
+		    	$('input').autocomplete({
+		    		source: function(request,response) {
+							$.ajax({
+						    url:"http://viz2.cartodb.com/api/v1/sql/?q=" + encodeURIComponent("SELECT cartodb_id,username,latitude,longitude FROM github_javascript_users WHERE username ilike '%" + request.term + "%' AND the_geom IS NOT NULL LIMIT 3"),
+					    	dataType: 'jsonp',
+						    timeout: 2000,
+						    callbackParameter: 'callback',
+						    success: function(result) {
+					    		response( $.map( result.rows, function( item ) {
+										return {
+											label: item.username,
+											id: item.cartodb_id,
+											center: new L.LatLng(item.latitude,item.longitude) 
+										}
+									}));
+								},
+					    	error: function(e, msg) {}
+					    });
+		    		}
+		    	});
+	    	}
+
+
+	    	// ANOTHER LAYER
+	    	if (example>4) {
+			    ruby = new L.CartoDBLayer({
+			      map_canvas: 'map',
+			      map: map,
+			      user_name:'viz2',
+			      table_name: 'github_ruby_users_export_8',
+			      query: "SELECT * FROM github_ruby_users_export_8",
+			      infowindow: true,
+			      auto_bound: false,
+			      debug: true
+			    });
+	    	}
 	    }
 
 	  });
