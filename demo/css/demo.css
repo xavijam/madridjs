@@ -1,0 +1,7 @@
+body {background:#333333; border:3px solid #333333;}
+
+div#map {position:absolute; top:3px; left:3px; right:253px; bottom:3px; z-index:1;}
+aside {position:absolute; top:3px; right:3px; bottom:3px; width:250px; z-index:1;}
+
+a.cartodb_logo {position:absolute; bottom:14px; left:15px; display:block; width:69px; height:27px; background:url('https://cartodb.s3.amazonaws.com/embed/sprite.png') no-repeat -350px -141px; text-indent:-9999px; line-height:0; font-size:0; text-transform:capitalize; z-index:10;}
+a.github_logo {position:absolute; top:-35px; left:-35px; height:100px; width:100px; -webkit-border-radius:100px; -moz-border-radius:100px; border-radius:100px; background:url('../img/github.png') no-repeat 20px 22px #333333; z-index:10; box-shadow:0 0 3px 3px rgba(0,0,0,0.2);}
