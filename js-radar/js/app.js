@@ -1,6 +1,9 @@
 var map, 
-    cartodb_leaflet1,
-    cartodb_leaflet2;
+    layer,
+    radius = 4000,
+    radDeg = 0
+    lng = 40.7248057566452,
+    lat = -73.9967118782795;
 
 function initialize() {
     map = new L.Map('map_canvas');
@@ -10,36 +13,31 @@ function initialize() {
         cloudmade = new L.TileLayer(cloudmadeUrl, {maxZoom: 18, attribution: cloudmadeAttrib});
 
     map.addLayer(cloudmade);
+    updateRadDeg(radius);
 
-    cartodb_leaflet1 = new L.CartoDBLayer({
+    layer = new L.CartoDBLayer({
         map_canvas: 'map_canvas',
-                     map: map,
-                     user_name:'viz2',
-                     table_name: 'github_ruby_users',
-                     query: "SELECT cartodb_id,the_geom_webmercator FROM github_ruby_users",
-                     tile_style: "#test2{line-color:#719700;line-width:1;line-opacity:0.6;polygon-opacity:0.6;}",
-                     map_key: "6087bc5111352713a81a48491078f182a0541f6c",
-                     infowindow: "SELECT cartodb_id,the_geom_webmercator FROM github_users WHERE cartodb_id={{feature}}",
-                     auto_bound: true,
-                     debug: true
-    });
-
-    cartodb_leaflet2 = new L.CartoDBLayer({
-        map_canvas: 'map_canvas',
-                     map: map,
-                     user_name:'viz2',
-                     table_name: 'github_ruby_users',
-                     query: "SELECT cartodb_id, the_geom_webmercator FROM github_ruby_users",
-                     map_key: "6087bc5111352713a81a48491078f182a0541f6c",
-                     infowindow: true,
-                     auto_bound: false,
-                     debug: true
+          map: map,
+          user_name:'viz2',
+          table_name: 'github_ruby_users',
+          //query: "SELECT cartodb_id, the_geom_webmercator FROM github_ruby_users",
+          query: "SELECT cartodb_id, the_geom_webmercator FROM github_ruby_users WHERE ST_Intersects( the_geom, ST_Buffer( ST_SetSRID('POINT(-73.9967118782795 40.7248057566452)'::geometry , 4326), "+radDeg+"))",
+          map_key: "6087bc5111352713a81a48491078f182a0541f6c",
+          infowindow: true,
+          auto_bound: false,
+          debug: true
     });
 
     var success = function(position) {
         var latlng = new L.LatLng(position.coords.latitude, position.coords.longitude);
-        console.log(latlng);
+        lat = position.coords.latitude;
+        lng = position.coords.longitude;
+
         map.setView(latlng, 13, true);
+
+        var circleOptions = { color: 'red', fillColor: '#f03', fillOpacity: 0.1 };
+        var circle = new L.Circle(latlng, radius, circleOptions);
+        map.addLayer(circle);
     }
 
     function error(msg) {
@@ -51,4 +49,22 @@ function initialize() {
     } else {
         error('not supported');
     }
+
+      function updateRadDeg(dist) {
+        var deg = 180; 
+        var brng = deg * Math.PI / 180; 
+        dist = dist/6371000; 
+        var lat1 = lat * Math.PI / 180; 
+        var lon1 = lng * Math.PI / 180; 
+        var lat2 = Math.asin(Math.sin(lat1) * Math.cos(dist) + 
+        Math.cos(lat1) * Math.sin(dist) * Math.cos(brng)); 
+        var lon2 = lon1 + Math.atan2(Math.sin(brng) * Math.sin(dist) * 
+        Math.cos(lat1), 
+        Math.cos(dist) - Math.sin(lat1) * 
+        Math.sin(lat2)); 
+        if (isNaN(lat2) || isNaN(lon2)) return null; 
+        radDeg = lat - (lat2 * 180 / Math.PI) ; 
+        //console.log(radDeg) 
+    }
+
 }
