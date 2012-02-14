@@ -20,8 +20,7 @@ function initialize() {
           map: map,
           user_name:'viz2',
           table_name: 'github_ruby_users',
-          //query: "SELECT cartodb_id, the_geom_webmercator FROM github_ruby_users",
-          query: "SELECT cartodb_id, the_geom_webmercator FROM github_ruby_users WHERE ST_Intersects( the_geom, ST_Buffer( ST_SetSRID('POINT(-73.9967118782795 40.7248057566452)'::geometry , 4326), "+radDeg+"))",
+          query: "SELECT cartodb_id, the_geom_webmercator FROM github_ruby_users WHERE ST_Intersects( the_geom, ST_Buffer( ST_SetSRID('POINT(" + lat + " " + lng + ")'::geometry , 4326), "+radDeg+"))",
           map_key: "6087bc5111352713a81a48491078f182a0541f6c",
           infowindow: true,
           auto_bound: false,
@@ -35,7 +34,7 @@ function initialize() {
 
         map.setView(latlng, 13, true);
 
-        var circleOptions = { color: 'red', fillColor: '#f03', fillOpacity: 0.1 };
+        var circleOptions = { weight:2, color: '#f03', fillColor: '#f03', fillOpacity: 0.1 };
         var circle = new L.Circle(latlng, radius, circleOptions);
         map.addLayer(circle);
     }
@@ -50,18 +49,18 @@ function initialize() {
         error('not supported');
     }
 
-      function updateRadDeg(dist) {
+    function updateRadDeg(dist) {
         var deg = 180; 
         var brng = deg * Math.PI / 180; 
         dist = dist/6371000; 
         var lat1 = lat * Math.PI / 180; 
         var lon1 = lng * Math.PI / 180; 
         var lat2 = Math.asin(Math.sin(lat1) * Math.cos(dist) + 
-        Math.cos(lat1) * Math.sin(dist) * Math.cos(brng)); 
+                Math.cos(lat1) * Math.sin(dist) * Math.cos(brng)); 
         var lon2 = lon1 + Math.atan2(Math.sin(brng) * Math.sin(dist) * 
-        Math.cos(lat1), 
-        Math.cos(dist) - Math.sin(lat1) * 
-        Math.sin(lat2)); 
+                Math.cos(lat1), 
+                Math.cos(dist) - Math.sin(lat1) * 
+                Math.sin(lat2)); 
         if (isNaN(lat2) || isNaN(lon2)) return null; 
         radDeg = lat - (lat2 * 180 / Math.PI) ; 
         //console.log(radDeg) 
