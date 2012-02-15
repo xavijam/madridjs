@@ -48,12 +48,11 @@ function initialize() {
     function error(msg) {
         console.log(msg);
     }
-
-    if (false) {
+    if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(success, error);
     } else {
         error('location not supported');
-        // fallback
+        // fallback to Madrid
         var center = new L.LatLng(40.4166909, -3.7003454);
         var position = { coords: { latitude: center.lat, longitude:center.lng }}; 
         success(position);
