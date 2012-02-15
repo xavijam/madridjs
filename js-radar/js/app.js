@@ -4,8 +4,8 @@ var map,
     radDeg = 0,
     maxZoom = 22,
     zoomLevel = 13,
-    lng = 40.7248057566452,
-    lat = -73.9967118782795;
+    lat = 40.7248057566452,
+    lng = -73.9967118782795;
 
 function initialize() {
     map = new L.Map('map_canvas');
@@ -28,8 +28,8 @@ function initialize() {
           auto_bound: false
     });
 
-    function drawCircle(position){
-        var center = new L.LatLng(position.coords.latitude, position.coords.longitude);
+    function drawCircle(){
+        var center = new L.LatLng(lat, lng);
         var circle = new L.Circle(center, radius, { weight:2, color: '#f03', fillColor: '#f03', fillOpacity: 0.1 });
         map.addLayer(circle);
     }
@@ -38,10 +38,10 @@ function initialize() {
         lat = position.coords.latitude;
         lng = position.coords.longitude;
 
-        var center = new L.LatLng(position.coords.latitude, position.coords.longitude);
+        var center = new L.LatLng(lat, lng);
 
         map.setView(center, zoomLevel, true);
-        drawCircle(position);
+        drawCircle();
     }
 
     function error(msg) {
