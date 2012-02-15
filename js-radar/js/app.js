@@ -1,7 +1,7 @@
 var map, 
     layer,
     radius = 4000,
-    radDeg = 0
+    radDeg = 0,
     maxZoom = 22,
     zoomLevel = 13,
     lng = 40.7248057566452,
@@ -26,10 +26,6 @@ function initialize() {
           query: "SELECT cartodb_id, the_geom_webmercator FROM github_ruby_users WHERE ST_Intersects( the_geom, ST_Buffer( ST_SetSRID('POINT(" + lng + " " + lat + ")'::geometry , 4326), "+radDeg+"))",
           infowindow: true,
           auto_bound: false
-    });
-
-    map.on('zoomend', function(e){
-
     });
 
     function drawCircle(position){
