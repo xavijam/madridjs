@@ -1256,12 +1256,12 @@ $.widget( "ui.autocomplete", {
 							if (ruby) {
 								ruby.params.popup._close();
 							}
-							javascript.params.popup._latlng = item.center;
+							javascript.params.popup.setLatLng(item.center);
 							javascript.params.popup.setContent(item.id);
 							javascript.params.map.openPopup(javascript.params.popup);
 						} else {
 							javascript.params.popup._close();
-							ruby.params.popup._latlng = item.center;
+							ruby.params.popup.setLatLng(item.center);
 							ruby.params.popup.setContent(item.id);
 							ruby.params.map.openPopup(ruby.params.popup);
 						}
