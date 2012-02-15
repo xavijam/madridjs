@@ -1,7 +1,8 @@
 
 	  	var javascript
   			, ruby
-  			, map;
+  			, map
+  			, example;
 
   	
 	  $(document).ready(function() {
@@ -25,8 +26,8 @@
 	      debug: true
 	    });
 
-
-	    var example = getUrlVars().example;
+	    // Example
+			example = getUrlVars().example;
 
 	    if (example>1) {
 
@@ -48,20 +49,23 @@
 
 
 	    	// Distance?
-	    	$('div.three').find('input').change(function(ev){
-	    		$(this).closest('div').find('h4').text('DEVELOPERS IN ' + ($(this).val()/1000) + 'KM');
-	    		$('div.three').find('a.selected').click();
-	    	});
-	    	$('div.three')
-	    		.css('opacity',1)
-	    		.find('a').click(function(ev){
-	    			ev.preventDefault();
-    				var value = getRadDeg($(this).attr('data-lat'),$(this).attr('data-lon'),$(this).closest('div').find('input').val());
-    				$(this).parent().find('a.selected').removeClass('selected');
-    				$(this).addClass('selected');
-    				var query = $(this).attr('href').replace('{{lat}}',$(this).attr('data-lat')).replace('{{lon}}',$(this).attr('data-lon')).replace('{{radius}}',value);
-    				javascript.update('query',query);	
+	    	if (example>2) {
+	    		$('div.three').find('input').change(function(ev){
+	    			$(this).closest('div').find('h4').text('DEVELOPERS IN ' + ($(this).val()/1000) + 'KM');
+	    			$('div.three').find('a.selected').click();
 	    		});
+	    		$('div.three')
+		    		.css('opacity',1)
+		    		.find('a').click(function(ev){
+		    			ev.preventDefault();
+	    				var value = getRadDeg($(this).attr('data-lat'),$(this).attr('data-lon'),$(this).closest('div').find('input').val());
+	    				$(this).parent().find('a.selected').removeClass('selected');
+	    				$(this).addClass('selected');
+	    				var query = $(this).attr('href').replace('{{lat}}',$(this).attr('data-lat')).replace('{{lon}}',$(this).attr('data-lon')).replace('{{radius}}',value);
+	    				javascript.update('query',query);	
+	    		});
+	    	}
+
 
 
 	    	if (example>3) {
@@ -69,8 +73,15 @@
 	    		// AUTOCOMPLETE
 		    	$('input').autocomplete({
 		    		source: function(request,response) {
+		    			var url = '';
+		    			if (example>4) {
+		    				url = "http://viz2.cartodb.com/api/v1/sql/?q=" + encodeURIComponent("(SELECT cartodb_id,username,st_asgeojson(the_geom) as the_geom,'javascript' as tbl FROM github_javascript_users WHERE username ilike '%" + request.term + "%' AND the_geom IS NOT NULL LIMIT 2) UNION (SELECT cartodb_id,username,st_asgeojson(the_geom) as the_geom,'ruby' as tbl FROM github_ruby_users WHERE username ilike '%" + request.term + "%' AND the_geom IS NOT NULL LIMIT 2)")
+		    			} else {
+		    				url = "http://viz2.cartodb.com/api/v1/sql/?q=" + encodeURIComponent("SELECT cartodb_id,username,st_asgeojson(the_geom) as the_geom,'javascript' as tbl FROM github_javascript_users WHERE username ilike '%" + request.term + "%' AND the_geom IS NOT NULL LIMIT 3")
+		    			}
+
 							$.ajax({
-						    url:"http://viz2.cartodb.com/api/v1/sql/?q=" + encodeURIComponent("SELECT cartodb_id,username,latitude,longitude FROM github_javascript_users WHERE username ilike '%" + request.term + "%' AND the_geom IS NOT NULL LIMIT 3"),
+						    url:url,
 					    	dataType: 'jsonp',
 						    timeout: 2000,
 						    callbackParameter: 'callback',
@@ -79,7 +90,8 @@
 										return {
 											label: item.username,
 											id: item.cartodb_id,
-											center: new L.LatLng(item.latitude,item.longitude) 
+											center: transformGeoJSON(item.the_geom),
+											tbl: item.tbl
 										}
 									}));
 								},
@@ -118,6 +130,12 @@
 	  }
 	  return vars;
 	}
+
+
+	function transformGeoJSON(str) {
+    var json = JSON.parse(str);
+    return new L.LatLng(json.coordinates[1],json.coordinates[0]);
+  }
 
 
 	function getRadDeg(lat,lng,dist) {

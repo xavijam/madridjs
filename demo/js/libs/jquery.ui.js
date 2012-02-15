@@ -1251,9 +1251,19 @@ $.widget( "ui.autocomplete", {
 					// Show infowindow
 					setTimeout(function() {
 						map.setZoom(7);
-						javascript.params.popup.setLatLng(item.center);
-						javascript.params.popup.setContent(item.id);
-						javascript.params.map.openPopup(javascript.params.popup);
+
+						if (item.tbl == "javascript") {
+							if (ruby) ruby.params.popup._close();
+							javascript.params.popup.setLatLng(item.center);
+							javascript.params.popup.setContent(item.id);
+							javascript.params.map.openPopup(javascript.params.popup);
+						} else {
+							javascript.params.popup._close();
+							ruby.params.popup.setLatLng(item.center);
+							ruby.params.popup.setContent(item.id);
+							ruby.params.map.openPopup(javascript.params.popup);
+						}
+
 					}, 1000);
 				},
 				blur: function( event, ui ) {
