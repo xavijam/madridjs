@@ -25,12 +25,12 @@ function initialize() {
 
         layer = new L.CartoDBLayer({
             map_canvas: 'map_canvas',
-            map: map,
-            user_name:'viz2',
-            table_name: 'github_ruby_users',
-            query: "SELECT cartodb_id, the_geom_webmercator FROM github_ruby_users WHERE ST_Intersects( the_geom, ST_Buffer( ST_SetSRID('POINT(" + lng + " " + lat + ")'::geometry , 4326), "+radDeg+"))",
-            infowindow: true,
-            auto_bound: false
+              map: map,
+              user_name:'viz2',
+              table_name: 'github_ruby_users',
+              query: "SELECT cartodb_id, the_geom_webmercator FROM github_ruby_users WHERE ST_Intersects( the_geom, ST_Buffer( ST_SetSRID('POINT(" + lng + " " + lat + ")'::geometry , 4326), "+radDeg+"))",
+              infowindow: true,
+              auto_bound: false
         });
     }
 
@@ -41,16 +41,6 @@ function initialize() {
         var center = new L.LatLng(lat, lng);
 
         map.setView(center, zoomLevel, true);
-
-        layer = new L.CartoDBLayer({
-            map_canvas: 'map_canvas',
-              map: map,
-              user_name:'viz2',
-              table_name: 'github_ruby_users',
-              query: "SELECT cartodb_id, the_geom_webmercator FROM github_ruby_users WHERE ST_Intersects( the_geom, ST_Buffer( ST_SetSRID('POINT(" + lng + " " + lat + ")'::geometry , 4326), "+radDeg+"))",
-              infowindow: true,
-              auto_bound: false
-        });
 
         drawCircle();
     };
