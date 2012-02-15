@@ -19,6 +19,7 @@
 	      user_name:'viz2',
 	      table_name: 'github_javascript_users',
 	      query: "SELECT * FROM github_javascript_users",
+	      tile_style: "#github_javascript_users {marker-fill: #3399FF; marker-opacity: 1; marker-width: 5; marker-line-color: white; marker-line-width: 2; marker-line-opacity: 0.5; marker-placement: point; marker-type: ellipse; marker-allow-overlap: true;}",
 	      infowindow: true,
 	      auto_bound: false,
 	      debug: true
@@ -32,7 +33,39 @@
 	    	// WITH OPTIONS
 	    	$('body').addClass('options');
 
-	    	if (example>2) {
+
+	    	// Hireable?
+	    	$('div.two')
+	    		.css('opacity',1)
+	    		.find('a').click(function(ev){
+	    			ev.preventDefault();
+	    			if (!$(this).hasClass('selected')) {
+	    				$(this).parent().find('a.selected').removeClass('selected');
+	    				$(this).addClass('selected');
+	    				javascript.update('tile_style',$(this).attr('href'));	
+	    			}
+	    		});
+
+
+	    	// Distance?
+	    	$('div.three').find('input').change(function(ev){
+	    		$(this).closest('div').find('h4').text('DEVELOPERS IN ' + ($(this).val()/1000) + 'KM');
+	    		$('div.three').find('a.selected').click();
+	    	});
+	    	$('div.three')
+	    		.css('opacity',1)
+	    		.find('a').click(function(ev){
+	    			ev.preventDefault();
+    				var value = getRadDeg($(this).attr('data-lat'),$(this).attr('data-lon'),$(this).closest('div').find('input').val());
+    				$(this).parent().find('a.selected').removeClass('selected');
+    				$(this).addClass('selected');
+    				var query = $(this).attr('href').replace('{{lat}}',$(this).attr('data-lat')).replace('{{lon}}',$(this).attr('data-lon')).replace('{{radius}}',value);
+    				javascript.update('query',query);	
+	    		});
+
+
+	    	if (example>3) {
+	    		$('div.four').css('opacity',1)
 	    		// AUTOCOMPLETE
 		    	$('input').autocomplete({
 		    		source: function(request,response) {
@@ -56,15 +89,15 @@
 		    	});
 	    	}
 
-
 	    	// ANOTHER LAYER
 	    	if (example>4) {
 			    ruby = new L.CartoDBLayer({
 			      map_canvas: 'map',
 			      map: map,
 			      user_name:'viz2',
-			      table_name: 'github_ruby_users_export_8',
-			      query: "SELECT * FROM github_ruby_users_export_8",
+			      table_name: 'github_ruby_users',
+			      query: "SELECT * FROM github_ruby_users",
+						tile_style: "#github_ruby_users {marker-fill: #FF3300; marker-opacity: 1; marker-width: 5; marker-line-color: white; marker-line-width: 2; marker-line-opacity: 0.5; marker-placement: point; marker-type: ellipse; marker-allow-overlap: true;}",
 			      infowindow: true,
 			      auto_bound: false,
 			      debug: true
@@ -73,8 +106,6 @@
 	    }
 
 	  });
-
-
 
 
 	function getUrlVars() {
@@ -86,4 +117,18 @@
 	    vars[hash[0]] = hash[1];
 	  }
 	  return vars;
-	}	  
+	}
+
+
+	function getRadDeg(lat,lng,dist) {
+		// In meters
+		var deg = 180;
+		var brng = deg * Math.PI / 180;
+		dist = dist/6371000;
+		var lat1 = lat * Math.PI / 180;
+		var lon1 = lng * Math.PI / 180;
+		var lat2 = Math.asin(Math.sin(lat1) * Math.cos(dist) + Math.cos(lat1) * Math.sin(dist) * Math.cos(brng));
+		var lon2 = lon1 + Math.atan2(Math.sin(brng) * Math.sin(dist) * Math.cos(lat1),Math.cos(dist) - Math.sin(lat1) * Math.sin(lat2));
+		if (isNaN(lat2) || isNaN(lon2)) return null;
+		return lat - (lat2 * 180 / Math.PI);
+  }

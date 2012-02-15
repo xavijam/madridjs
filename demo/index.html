@@ -19,16 +19,23 @@
 <body>
 	<div id="map"></div>
 	<aside>
-		<div class="two">
-      <h4>EMPLOYABLE / OCCUPIED</h4>
-      <form>
-        <input type="radio" name="employable" value="employable"/>employable
-        <input type="radio" name="occupied" value="occupied"/>occupied
-        <input type="radio" name="All" value="normal"/>normal
-      </form>
+    <h1>Some examples about how to use CartoDB in your applications</h1>
+		<div class="two selection">
+      <h4>HIREABLE?</h4>
+      <span>
+        <a class="first selected" href="#github_javascript_users {marker-fill: #3399FF; marker-opacity: 1; marker-width: 5; marker-line-color: white; marker-line-width: 2; marker-line-opacity: 0.5; marker-placement: point; marker-type: ellipse; marker-allow-overlap: true;}">All</a>
+        <a href="#github_javascript_users[hireable='t'] {marker-fill: #00CC33;} #github_javascript_users[hireable='f'] {marker-opacity:0; marker-line-opacity:0}">Free</a>
+        <a class="last" href="#github_javascript_users[hireable='f'] {marker-fill: #FF0000;} #github_javascript_users[hireable='t'] {marker-opacity:0; marker-line-opacity:0}">Busy</a>
+      </span>
     </div>
-    <div class="three">
-      <h4>-</h4>
+    <div class="three selection">
+      <h4>DEVELOPERS IN 100KM</h4>
+      <span>
+        <a class="first" href="SELECT * FROM github_javascript_users WHERE ST_Intersects( the_geom, ST_Buffer( ST_SetSRID('POINT({{lon}} {{lat}})'::geometry , 4326), {{radius}} ))" data-lat="40.4166909" data-lon="-3.7003454">MAD</a>
+        <a href="SELECT * FROM github_javascript_users WHERE ST_Intersects( the_geom, ST_Buffer( ST_SetSRID('POINT({{lon}} {{lat}})'::geometry , 4326), {{radius}} ))" data-lat="40.7143528" data-lon="-74.0059731">NY</a>
+        <a class="last" href="SELECT * FROM github_javascript_users WHERE ST_Intersects( the_geom, ST_Buffer( ST_SetSRID('POINT({{lon}} {{lat}})'::geometry , 4326), {{radius}} ))" data-lat="41.3072296" data-lon="-5.2172345">ALA</a>
+      </span>
+      <input type="range" class="distance" min="50000" max="300000" step="50" value="100000">
     </div>
     <div class="four">
       <h4>SEARCH ANY JAVASCRIPTERS</h4>

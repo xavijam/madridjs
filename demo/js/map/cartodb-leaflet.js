@@ -171,8 +171,8 @@ if (typeof(L.CartoDBLayer) === "undefined") {
 	  
 
 	  // Update tiles & interactivity layer;
-    L.CartoDBLayer.prototype.update = function(sql) {
-    	this.params.query = sql;
+    L.CartoDBLayer.prototype.update = function(param, value) {
+    	this.params[param] = value;
 
       // Hide the infowindow
       if (this.params.popup) 
