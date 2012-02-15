@@ -18,20 +18,21 @@ function initialize() {
 
     updateRadDeg(radius);
 
-    layer = new L.CartoDBLayer({
-        map_canvas: 'map_canvas',
-          map: map,
-          user_name:'viz2',
-          table_name: 'github_ruby_users',
-          query: "SELECT cartodb_id, the_geom_webmercator FROM github_ruby_users WHERE ST_Intersects( the_geom, ST_Buffer( ST_SetSRID('POINT(" + lng + " " + lat + ")'::geometry , 4326), "+radDeg+"))",
-          infowindow: true,
-          auto_bound: false
-    });
 
     function drawCircle(){
         var center = new L.LatLng(lat, lng);
         var circle = new L.Circle(center, radius, { weight:2, color: '#f03', fillColor: '#f03', fillOpacity: 0.1 });
         map.addLayer(circle);
+
+        layer = new L.CartoDBLayer({
+            map_canvas: 'map_canvas',
+            map: map,
+            user_name:'viz2',
+            table_name: 'github_ruby_users',
+            query: "SELECT cartodb_id, the_geom_webmercator FROM github_ruby_users WHERE ST_Intersects( the_geom, ST_Buffer( ST_SetSRID('POINT(" + lng + " " + lat + ")'::geometry , 4326), "+radDeg+"))",
+            infowindow: true,
+            auto_bound: false
+        });
     }
 
     var success = function(position) {
@@ -42,7 +43,7 @@ function initialize() {
 
         map.setView(center, zoomLevel, true);
         drawCircle();
-    }
+    };
 
     function error(msg) {
         console.log(msg);
