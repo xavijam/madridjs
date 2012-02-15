@@ -59,7 +59,7 @@ function initialize() {
         console.log(msg);
     }
 
-    if (navigator.geolocation) {
+    if (navigator && navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(success, error);
     } else {
         var center = new L.LatLng(40.4166909, -3.7003454);
