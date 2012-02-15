@@ -1,7 +1,7 @@
 var map, 
     layer,
     radius = 4000,
-    radDeg = 0
+    radDeg = 0,
     maxZoom = 22,
     zoomLevel = 13,
     lng = 40.7248057566452,
@@ -26,10 +26,6 @@ function initialize() {
           map_key: "6087bc5111352713a81a48491078f182a0541f6c",
           infowindow: true,
           auto_bound: false
-    });
-
-    map.on('zoomend', function(e){
-
     });
 
     function drawCircle(position){
