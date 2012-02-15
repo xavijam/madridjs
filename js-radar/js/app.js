@@ -21,8 +21,8 @@ function initialize() {
         map_canvas: 'map_canvas',
           map: map,
           user_name:'viz2',
-          table_name: 'github_ruby_users_old',
-          query: "SELECT cartodb_id,the_geom_webmercator FROM github_ruby_users_old WHERE ST_Intersects( the_geom, ST_Buffer( ST_SetSRID('POINT(" + lat + " " + lng + ")'::geometry , 4326), "+radDeg+"))",
+          table_name: 'github_ruby_users',
+          query: "SELECT cartodb_id,the_geom_webmercator FROM github_ruby_users WHERE ST_Intersects( the_geom, ST_Buffer( ST_SetSRID('POINT(" + lat + " " + lng + ")'::geometry , 4326), "+radDeg+"))",
           infowindow: false,
           auto_bound: false
     });
