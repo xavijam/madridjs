@@ -64,7 +64,7 @@ function initialize() {
     } else {
         var center = new L.LatLng(40.4166909, -3.7003454);
         success({coords: { latitude: center.lat, longitude:center.lng }});
-        error('location not supported');
+        //error('location not supported');
     }
 
     function updateRadDeg(dist) {
