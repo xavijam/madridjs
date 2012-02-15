@@ -1,0 +1,85 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+
+body {height:100%; width:100%; margin:0; padding:0; background:#333333; overflow:hidden;}
+div#map {position:absolute; top:0; left:0; right:0; bottom:0; z-index:1; border:3px solid #333333;}
+aside {position:absolute; top:3px; right:-250px; bottom:3px; width:220px; padding:15px; z-index:1;}
+aside h4 {font:bold 12px Arial; color:white; text-transform:uppercase;}
+aside div.two,
+aside div.three,
+aside div.four {opacity:0.1; padding:0 0 35px;}
+aside h1 {padding:0 0 30px 0; font:bold 17px Arial; color:white; letter-spacing:-1px;}
+body.options div#map {right:250px;}
+body.options aside {right:0;}
+
+div.selection {overflow:hidden;}
+div.selection span {display:block; padding:12px 0 0 0;}
+div.selection a {float:left; height:auto; padding:11px 0 14px 0; text-align:center; border:none; border-left:1px solid white; border-right:1px solid #CCCCCC; font:bold 15px "Helvetica",Arial; color:#FF6600;
+  width:65px; background: linear-gradient(-90deg,#FFFFFF,#E0E0E0);background:-webkit-gradient(linear,50% 0%,50% 100%,from(#FFFFFF),to(#E0E0E0));background:-moz-linear-gradient(-90deg,#FFFFFF,#E0E0E0);background:-o-linear-gradient(#FFFFFF,#E0E0E0);background:#E0E0E0 \9; text-decoration:none;}
+div.selection a.first{width:72px; border-right:1px solid #CCCCCC;-webkit-border-top-left-radius:5px;-webkit-border-bottom-left-radius:5px;-moz-border-radius-topleft:10px;-moz-border-radius-bottomleft:5px;border-top-left-radius:5px;border-bottom-left-radius:5px;}
+div.selection a.last{width:72px; border-right:none; -webkit-border-top-right-radius:5px;-webkit-border-bottom-right-radius:5px;-moz-border-radius-topright:5px;-moz-border-radius-bottomright:5px;border-top-right-radius:5px;border-bottom-right-radius:5px;}
+div.selection a:hover,
+div.selection a.selected,
+div.selection a:focus {color:#666; cursor:pointer; outline:none;background:linear-gradient(-90deg,#E0E0E0,#FFFFFF);background:-webkit-gradient(linear,50% 0%,50% 100%,from(#E0E0E0),to(#FFFFFF));
+  background:-moz-linear-gradient(-90deg,#E0E0E0,#FFFFFF);background:-o-linear-gradient(#E0E0E0,#FFFFFF);background:#FFFFFF \9;}
+div.selection a.selected {cursor:default}
+
+div.selection input[type="range"] {margin:10px 0 0 0; width:214px;}
+
+a.cartodb_logo {position:absolute; bottom:14px; left:15px; display:block; width:69px; height:27px; background:url('https://cartodb.s3.amazonaws.com/embed/sprite.png') no-repeat -350px -141px; text-indent:-9999px; line-height:0; font-size:0; text-transform:capitalize; z-index:10;}
+a.github_logo {position:absolute; top:-20px; left:-20px; height:100px; width:100px; -webkit-border-radius:100px; -moz-border-radius:100px; border-radius:100px; background:url('../img/github.png') no-repeat 20px 22px #333333; z-index:10; box-shadow:0 0 3px 3px rgba(0,0,0,0.2);}
+
+
+
+/*autocomplete*/
+input[type="text"] {display:block; width:185px; margin:12px 0 0 0; padding:11px 22px 11px 9px; border:1px solid #252525; -webkit-border-radius:4px; -moz-border-radius:4px; border-radius:4px;background:#333333; font:normal 13px "Open Sans"; line-height:normal; color:white; outline: none;}
+input[type="text"]:focus {border: 1px solid #FFFFFF!important;}
+.ui-autocomplete {width:263px; border:1px solid #333333; -webkit-border-radius:4px; -moz-border-radius:4px; border-radius:4px; list-style:none; pointer-events:none; border:1px solid white;}
+.ui-autocomplete li {position:relative; display:block; padding:0 18px 9px; pointer-events:auto;}
+.ui-autocomplete li a {position:relative; display:block; width:100%; padding:0 0 8px 0; font:normal 15px "Open Sans"; color:#999; text-decoration:none; pointer-events:auto;}
+.ui-autocomplete li a:hover,
+.ui-autocomplete li a.ui-state-hover,
+.ui-autocomplete li a.ui-state-active { color:white;}
+.ui-autocomplete p {font:normal 13px Arial; color:#777;}
