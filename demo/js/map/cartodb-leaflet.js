@@ -261,7 +261,6 @@ L.CartoDBInfowindow = L.Class.extend({
 		if (!this._container) {
 			this._initLayout();
 		}
-		this._updateContent();
 
 		this._container.style.opacity = '0';
 
@@ -358,12 +357,14 @@ L.CartoDBInfowindow = L.Class.extend({
 	    timeout: 2000,
 	    callbackParameter: 'callback',
 	    success: function(result) {
-    		that._updateContent(result.rows[0]);
-				that._updateLayout();
-				that._updatePosition();
-				that._container.style.visibility = '';
-				that._adjustPan();
-				that._open();
+	    	if (result.rows[0]!=undefined) {
+	    		that._updateContent(result.rows[0]);
+					that._updateLayout();
+					that._updatePosition();
+					that._container.style.visibility = '';
+					that._adjustPan();
+					that._open();
+	    	}
 			},
     	error: function(e, msg) {
       	that.params_.debug && console.debug('Error retrieving infowindow variables: ' + msg)
@@ -380,16 +381,9 @@ L.CartoDBInfowindow = L.Class.extend({
 	  this._contentNode.innerHTML = '';
 
 		// Add new ones
-		var content = '';
-		 for (p in variables) {
-		   if (p!='cartodb_id' && p!='the_geom_webmercator') {
-		    content += '<label>'+p+'</label><p class="'+((variables[p]!=null && variables[p]!='')?'':'empty')+'">'+(variables[p] || 'empty')+'</p>';
-		   }
-		 }
+		var content = '<div class="left"><img width="46" height="46" src="' + variables['avatar'] + '" alt="" title=""/></div><div class="right"><h4><a href="' + ( variables['blog'] || 'http://github.com/' + variables['username']) + '" target="_blank">' + variables['username'] + '</a></h4><p>' + variables['location'] + '</p></div>';
+
 	  this._contentNode.innerHTML = content;
-	  
-	  // Show cartodb-id
-	  this._tipContainer.innerHTML = '<label>id: <strong>'+this._feature+'</strong></label>';
 	},
 
 	_updateLayout: function() {
