@@ -75,7 +75,7 @@
 		    		source: function(request,response) {
 		    			var url = '';
 		    			if (example>4) {
-		    				url = "http://viz2.cartodb.com/api/v1/sql/?q=" + encodeURIComponent("(SELECT cartodb_id,username,st_asgeojson(the_geom) as the_geom,'javascript' as tbl FROM github_javascript_users WHERE username ilike '%" + request.term + "%' AND the_geom IS NOT NULL LIMIT 2) UNION (SELECT cartodb_id,username,st_asgeojson(the_geom) as the_geom,'ruby' as tbl FROM github_ruby_users WHERE username ilike '%" + request.term + "%' AND the_geom IS NOT NULL LIMIT 2)")
+		    				url = "http://viz2.cartodb.com/api/v1/sql/?q=" + encodeURIComponent("(SELECT cartodb_id,username,st_asgeojson(the_geom) as the_geom,'javascript' as tbl FROM github_javascript_users WHERE username ilike '%" + request.term + "%' AND the_geom IS NOT NULL LIMIT 2) UNION (SELECT cartodb_id,username,st_asgeojson(the_geom) as the_geom,'ruby' as tbl FROM github_ruby_users_old WHERE username ilike '%" + request.term + "%' AND the_geom IS NOT NULL LIMIT 2)")
 		    			} else {
 		    				url = "http://viz2.cartodb.com/api/v1/sql/?q=" + encodeURIComponent("SELECT cartodb_id,username,st_asgeojson(the_geom) as the_geom,'javascript' as tbl FROM github_javascript_users WHERE username ilike '%" + request.term + "%' AND the_geom IS NOT NULL LIMIT 3")
 		    			}
@@ -107,9 +107,9 @@
 			      map_canvas: 'map',
 			      map: map,
 			      user_name:'viz2',
-			      table_name: 'github_ruby_users',
-			      query: "SELECT * FROM github_ruby_users",
-						tile_style: "#github_ruby_users {marker-fill: #FF3300; marker-opacity: 1; marker-width: 5; marker-line-color: white; marker-line-width: 2; marker-line-opacity: 0.5; marker-placement: point; marker-type: ellipse; marker-allow-overlap: true;}",
+			      table_name: 'github_ruby_users_old',
+			      query: "SELECT * FROM github_ruby_users_old",
+						tile_style: "#github_ruby_users_old {marker-fill: #FF3300; marker-opacity: 1; marker-width: 5; marker-line-color: white; marker-line-width: 2; marker-line-opacity: 0.5; marker-placement: point; marker-type: ellipse; marker-allow-overlap: true;}",
 			      infowindow: true,
 			      auto_bound: false,
 			      debug: true

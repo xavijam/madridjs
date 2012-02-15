@@ -1253,15 +1253,17 @@ $.widget( "ui.autocomplete", {
 						map.setZoom(7);
 
 						if (item.tbl == "javascript") {
-							if (ruby) ruby.params.popup._close();
-							javascript.params.popup.setLatLng(item.center);
+							if (ruby) {
+								ruby.params.popup._close();
+							}
+							javascript.params.popup._latlng = item.center;
 							javascript.params.popup.setContent(item.id);
 							javascript.params.map.openPopup(javascript.params.popup);
 						} else {
 							javascript.params.popup._close();
-							ruby.params.popup.setLatLng(item.center);
+							ruby.params.popup._latlng = item.center;
 							ruby.params.popup.setContent(item.id);
-							ruby.params.map.openPopup(javascript.params.popup);
+							ruby.params.map.openPopup(ruby.params.popup);
 						}
 
 					}, 1000);
