@@ -350,14 +350,13 @@ L.CartoDBInfowindow = L.Class.extend({
       infowindow_sql = encodeURIComponent(this.options.infowindow.replace('{{feature}}',this._feature));
     }
       
-
     $.ajax({
 	    url:'http://'+ this.options.user_name +'.cartodb.com/api/v1/sql/?q='+infowindow_sql,
     	dataType: 'jsonp',
 	    timeout: 2000,
 	    callbackParameter: 'callback',
 	    success: function(result) {
-	    	if (result.rows[0]!=undefined) {
+	    	if (that._feature!=undefined && result.rows[0]!=undefined) {
 	    		that._updateContent(result.rows[0]);
 					that._updateLayout();
 					that._updatePosition();
@@ -367,7 +366,7 @@ L.CartoDBInfowindow = L.Class.extend({
 	    	}
 			},
     	error: function(e, msg) {
-      	that.params_.debug && console.debug('Error retrieving infowindow variables: ' + msg)
+      	//that.params_.debug && console.debug('Error retrieving infowindow variables: ' + msg)
       }
     });
 	},
