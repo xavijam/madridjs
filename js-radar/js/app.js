@@ -3,7 +3,7 @@ var map,
     radius = 4000,
     radDeg = 0,
     maxZoom = 22,
-    zoomLevel = 13,
+    zoomLevel = 12,
     lat = 40.7248057566452,
     lng = -73.9967118782795;
 
